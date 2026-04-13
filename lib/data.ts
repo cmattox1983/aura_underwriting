@@ -1,9 +1,9 @@
 import type { HealthConditionId, ProductId } from "@/types/underwriting";
 
-export const HEALTH_CONDITIONS: {
+export const HEALTH_CONDITIONS: Array<{
   id: HealthConditionId;
   label: string;
-}[] = [
+}> = [
   { id: "hypertension", label: "Hypertension" },
   { id: "diabetes", label: "Diabetes" },
   { id: "heart_disease", label: "Heart Disease" },
@@ -12,7 +12,7 @@ export const HEALTH_CONDITIONS: {
   { id: "stroke", label: "Stroke" },
 ];
 
-export const PRODUCTS: {
+export const PRODUCTS: Array<{
   id: ProductId;
   icon: string;
   title: string;
@@ -23,7 +23,7 @@ export const PRODUCTS: {
   midCoverage: number;
   defaultCoverage: number;
   step: number;
-}[] = [
+}> = [
   {
     id: "term_life",
     icon: "📋",
