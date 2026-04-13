@@ -31,7 +31,7 @@ interface UnderwritingContextValue {
   ) => void;
   clearFollowUpAnswers: (condition: HealthConditionId) => void;
   setFollowUpStructured: (data: FollowUpStructured) => void;
-  clearFollowUpStructured: (condition: HealthConditionId) => void;
+  clearFollowUpStructured: (condition: keyof FollowUpStructured) => void;
   resetForm: () => void;
 }
 
@@ -51,6 +51,17 @@ const STORAGE_KEY = "underwriting-form-data";
 const UnderwritingContext = createContext<UnderwritingContextValue | undefined>(
   undefined,
 );
+
+function isStructuredCondition(
+  condition: HealthConditionId,
+): condition is keyof FollowUpStructured {
+  return (
+    condition === "diabetes" ||
+    condition === "heart_disease" ||
+    condition === "cancer" ||
+    condition === "stroke"
+  );
+}
 
 export function UnderwritingProvider({ children }: { children: ReactNode }) {
   const [formData, setFormData] =
@@ -125,7 +136,10 @@ export function UnderwritingProvider({ children }: { children: ReactNode }) {
             };
 
             delete updatedFollowUpAnswers[condition];
-            delete updatedFollowUpStructured[condition];
+
+            if (isStructuredCondition(condition)) {
+              delete updatedFollowUpStructured[condition];
+            }
 
             return {
               ...prev,
