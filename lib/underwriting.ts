@@ -401,11 +401,6 @@ function assessHealth(formData: UnderwritingFormData): UnderwritingAssessment {
             finalRiskTier !== "declined"
           ) {
             finalRiskTier = "rated";
-          } else if (
-            structuredAssessment.riskTier === "standard" &&
-            finalRiskTier === "preferred"
-          ) {
-            finalRiskTier = "standard";
           }
         }
       }
