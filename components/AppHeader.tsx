@@ -5,12 +5,19 @@ interface AppHeaderProps {
   activeNav?: "dashboard" | "applications" | "clients" | "settings";
 }
 
-const NAV_LINKS = [
+type NavLink = {
+  key: "dashboard" | "applications" | "clients" | "settings";
+  label: string;
+  href: string;
+  disabled?: boolean;
+};
+
+const NAV_LINKS: NavLink[] = [
   { key: "dashboard", label: "Dashboard", href: "/dashboard" },
   { key: "applications", label: "Applications", href: "/" },
   { key: "clients", label: "Clients", href: "/clients", disabled: true },
   { key: "settings", label: "Settings", href: "/settings", disabled: true },
-] as const;
+];
 
 export default function AppHeader({
   showNotification = false,
@@ -31,7 +38,7 @@ export default function AppHeader({
         <nav className="hidden md:flex gap-8 items-center">
           {NAV_LINKS.map((link) => {
             const isActive = activeNav === link.key;
-            const isDisabled = "disabled" in link && link.disabled === true;
+            const isDisabled = link.disabled === true;
 
             return (
               <Link
