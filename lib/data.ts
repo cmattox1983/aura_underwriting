@@ -1,4 +1,9 @@
-export const HEALTH_CONDITIONS = [
+import type { HealthConditionId, ProductId } from "@/types/underwriting";
+
+export const HEALTH_CONDITIONS: {
+  id: HealthConditionId;
+  label: string;
+}[] = [
   { id: "hypertension", label: "Hypertension" },
   { id: "diabetes", label: "Diabetes" },
   { id: "heart_disease", label: "Heart Disease" },
@@ -7,7 +12,18 @@ export const HEALTH_CONDITIONS = [
   { id: "stroke", label: "Stroke" },
 ];
 
-export const PRODUCTS = [
+export const PRODUCTS: {
+  id: ProductId;
+  icon: string;
+  title: string;
+  description: string;
+  features: string[];
+  minCoverage: number;
+  maxCoverage: number;
+  midCoverage: number;
+  defaultCoverage: number;
+  step: number;
+}[] = [
   {
     id: "term_life",
     icon: "📋",
@@ -26,7 +42,7 @@ export const PRODUCTS = [
     icon: "🏛️",
     title: "Final Expense",
     description:
-      "Guaranteed Protection for life. Best used for burial expenses, and has growing cash value that can be borrowed against. ",
+      "Guaranteed protection for life. Best used for burial expenses, and has growing cash value that can be borrowed against.",
     features: ["Permanent Coverage", "Cash Value"],
     minCoverage: 10000,
     maxCoverage: 50000,
