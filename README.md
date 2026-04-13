@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aura Underwriting
 
-## Getting Started
+A modern underwriting simulation built with **Next.js**, **TypeScript**, **Tailwind CSS**, and an **AI-assisted interpretation layer** for health follow-up responses.
 
-First, run the development server:
+Aura Underwriting models a life insurance-style intake workflow through a structured multi-step experience rather than a free-form chatbot. The app combines a polished frontend, deterministic underwriting logic, and server-side AI extraction to simulate how real underwriting software can guide users through sensitive health and coverage questions.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Features
+
+- **3-step underwriting flow**
+  - Personal Information
+  - Coverage & Product Selection
+  - Final Review
+
+- **React Context state management**
+  - Stores applicant data across the entire workflow
+
+- **Session persistence**
+  - Keeps progress during the session with `sessionStorage`
+
+- **Deterministic underwriting engine**
+  - Premiums and decisions are calculated in application code
+
+- **AI-assisted health interpretation**
+  - Converts free-text follow-up answers into structured underwriting data
+
+- **Rule-based underwriting decisions**
+  - Supports:
+    - approved
+    - provisional
+    - manual review
+    - declined
+
+- **Fallback-safe design**
+  - If AI interpretation fails, the app falls back to deterministic local mapping logic
+
+---
+
+## Demo Workflow
+
+### Step 1 — Personal Information
+
+Users provide:
+
+- age
+- smoker / non-smoker status
+- annual income
+- pre-existing health conditions
+
+### Step 2 — Coverage & Product Selection
+
+Users choose:
+
+- coverage amount
+- insurance product type
+
+Available products:
+
+- **Term Life**
+- **Final Expense**
+
+### Step 3 — Review
+
+The application displays:
+
+- applicant summary
+- selected product and coverage
+- health declarations
+- underwriting notes
+- premium or ineligibility status
+- risk tier and underwriting outcome
+
+---
+
+## Health Follow-Up Flow
+
+If a user selects certain flagged conditions, the app launches a guided follow-up modal for additional underwriting information.
+
+Flagged conditions currently include:
+
+- diabetes
+- heart disease
+- stroke
+- cancer
+
+The modal captures raw answers, sends them to a server route, and attempts to convert them into structured JSON for underwriting evaluation.
+
+Example structured output for cancer:
+
+```json
+{
+  "cancer": {
+    "type": "melanoma",
+    "status": "remission",
+    "yearsAgo": 5,
+    "occurrences": 1,
+    "isActive": false
+  }
+}
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
